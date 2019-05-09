@@ -349,7 +349,7 @@ public class DateTimeWheelDialog extends Dialog {
 
     private void initSelectedDate() {
         int year = selectedCalendar.get(Calendar.YEAR);
-        int month = selectedCalendar.get(Calendar.MONTH);
+        int month = selectedCalendar.get(Calendar.MONTH) + 1;
         int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
         int hour = selectedCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = selectedCalendar.get(Calendar.MINUTE);
