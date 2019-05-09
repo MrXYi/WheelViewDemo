@@ -27,10 +27,10 @@ publish {
     userOrg = "$user_org"
     repoName = 'maven'
     groupId = 'jsc.kit.wheel'
-    artifactId = 'wheel-view'
+    artifactId = 'WheelView'
     publishVersion = "$version_name"
     desc = 'a wheel view library'
-    website = 'https://github.com/JustinRoom/WheelViewDemo'
+    website = 'https://github.com/MrXYi/WheelViewDemo'
 }
 
 dependencies {
