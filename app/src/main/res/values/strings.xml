@@ -1,6 +1,0 @@
-<resources>
-    <string name="app_name">WheelView</string>
-    <string name="app_update_content">
-        \n1、update DateTimeWheelDialog component.
-    </string>
-</resources>
