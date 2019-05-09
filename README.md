@@ -15,8 +15,7 @@ Scan QRCode to download demo application below:
 ### 1、implementation
 + 1.1、Gradle
 ```
-implementation 'com.android.support:appcompat-v7:XXX'
-compile 'jsc.kit.wheel:wheel-view:_latestVersion'
+implementation 'com.github.MrXYi:WheelViewDemo:v1.1'
 ```
 + 1.2、Maven
 ```
