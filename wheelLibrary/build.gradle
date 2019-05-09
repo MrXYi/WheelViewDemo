@@ -1,5 +1,6 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.novoda.bintray-release'
+apply plugin:'com.github.dcendents.android-maven'
+group='MrXYi'
 
 android {
     compileSdkVersion sdk_veriosn
@@ -21,16 +22,6 @@ android {
         }
     }
 
-}
-
-publish {
-    userOrg = "$user_org"
-    repoName = 'maven'
-    groupId = 'jsc.kit.wheel'
-    artifactId = 'wheel-view'
-    publishVersion = "$version_name"
-    desc = 'a wheel view library'
-    website = 'https://github.com/MrXYi/WheelViewDemo'
 }
 
 dependencies {
