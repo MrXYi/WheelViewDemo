@@ -27,7 +27,7 @@ publish {
     userOrg = "$user_org"
     repoName = 'maven'
     groupId = 'jsc.kit.wheel'
-    artifactId = 'WheelView'
+    artifactId = 'wheel-view'
     publishVersion = "$version_name"
     desc = 'a wheel view library'
     website = 'https://github.com/MrXYi/WheelViewDemo'
