@@ -1,33 +1,41 @@
-apply plugin: 'com.android.library'
-apply plugin:'com.github.dcendents.android-maven'
-group='MrXYi'
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-android {
-    compileSdkVersion sdk_veriosn
+buildscript {
+    ext.user_org = 'justinquote'
+    ext.min_sdk_veriosn = 19
+    ext.sdk_veriosn = 28
+    ext.component_version = '28.0.0'
+    ext.version_code = 13
+    ext.version_name = '0.6.4'
 
-    defaultConfig {
-        minSdkVersion min_sdk_veriosn
-        targetSdkVersion sdk_veriosn
-        versionCode version_code
-        versionName version_name
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+    repositories {
+        google()
+        jcenter()
     }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.2.0'
+        classpath'com.github.dcendents:android-maven-gradle-plugin:2.0'
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
     }
-
 }
 
-dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
-    compileOnly 'com.android.support:appcompat-v7:28.0.0'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    tasks.withType(Javadoc) {
+        options{
+            encoding "UTF-8"
+            charSet 'UTF-8'
+            links "http://docs.oracle.com/javase/8/docs/api"
+        }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
