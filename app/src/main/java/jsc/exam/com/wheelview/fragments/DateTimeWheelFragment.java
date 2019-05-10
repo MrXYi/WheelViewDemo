@@ -12,10 +12,8 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Random;
 
 import jsc.exam.com.wheelview.R;
-import jsc.kit.wheel.dialog.ColumnWheelDialog;
 import jsc.kit.wheel.dialog.DateTimeWheelDialog;
 
 /**

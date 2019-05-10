@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.IntDef;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -280,6 +281,7 @@ public class DateTimeWheelDialog extends Dialog {
         ensureIsViewInitialized();
         if (selectedDate.before(startCalendar.getTime()) || selectedDate.after(endCalendar.getTime()))
             throw new IllegalArgumentException("selected date must be between start date and end date");
+        selectedCalendar.clear();
         selectedCalendar.setTime(selectedDate);
         initSelectedDate();
         initOnScrollListener();
@@ -318,7 +320,21 @@ public class DateTimeWheelDialog extends Dialog {
         monthWheelItemView.setOnSelectedListener(new WheelView.OnSelectedListener() {
             @Override
             public void onSelected(Context context, int selectedIndex) {
-                selectedCalendar.set(Calendar.MONTH, monthItems[selectedIndex].getValue() - 1);
+                int value = monthItems[selectedIndex].getValue() - 1;
+                int year = selectedCalendar.get(Calendar.YEAR);
+                int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
+
+                selectedCalendar.clear();
+                selectedCalendar.set(Calendar.YEAR, year);
+                selectedCalendar.set(Calendar.MONTH, value);
+                int lastDay = selectedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+                if (day > lastDay) {
+                    selectedCalendar.set(Calendar.DAY_OF_MONTH, lastDay);
+                } else {
+                    selectedCalendar.set(year, value, day);
+                }
+                int month = selectedCalendar.get(Calendar.MONTH);
+                Log.i("test_wheel_set", "value:" + value + " month:" + month);
                 if (showConfig > SHOW_YEAR_MONTH)
                     onMonthChanged();
             }
@@ -326,6 +342,7 @@ public class DateTimeWheelDialog extends Dialog {
         dayWheelItemView.setOnSelectedListener(new WheelView.OnSelectedListener() {
             @Override
             public void onSelected(Context context, int selectedIndex) {
+                Log.i("test_wheel_set_day", "value:" + dayItems[selectedIndex].getValue());
                 selectedCalendar.set(Calendar.DAY_OF_MONTH, dayItems[selectedIndex].getValue());
                 if (showConfig > SHOW_YEAR_MONTH_DAY)
                     onDayChanged();
@@ -349,13 +366,13 @@ public class DateTimeWheelDialog extends Dialog {
 
     private void initSelectedDate() {
         int year = selectedCalendar.get(Calendar.YEAR);
-        int month = selectedCalendar.get(Calendar.MONTH) + 1;
+        int month = selectedCalendar.get(Calendar.MONTH);
         int day = selectedCalendar.get(Calendar.DAY_OF_MONTH);
         int hour = selectedCalendar.get(Calendar.HOUR_OF_DAY);
         int minute = selectedCalendar.get(Calendar.MINUTE);
         int index = findSelectedIndexByValue(yearItems, year);
         yearWheelItemView.setSelectedIndex(index, false);
-        index = findSelectedIndexByValue(monthItems, month);
+        index = findSelectedIndexByValue(monthItems, month + 1);
         monthWheelItemView.setSelectedIndex(index, false);
         index = findSelectedIndexByValue(dayItems, day);
         dayWheelItemView.setSelectedIndex(index, false);
@@ -395,6 +412,7 @@ public class DateTimeWheelDialog extends Dialog {
             }
         }
         int newSelectedIndex = keepLastSelected ? (lastSelectedIndex == -1 ? 0 : lastSelectedIndex) : 0;
+        Log.i("test_wheel_year", "startValue:" + startValue + " endValue:" + endValue + " newSelectedIndex:" + newSelectedIndex);
         monthWheelItemView.setItems(monthItems);
         monthWheelItemView.setSelectedIndex(newSelectedIndex);
     }
@@ -422,6 +440,7 @@ public class DateTimeWheelDialog extends Dialog {
         } else {
             startValue = MIN_DAY;
             endValue = selectedCalendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            Log.i("", "");
         }
         dayItems = new DateItem[endValue - startValue + 1];
         for (int i = startValue; i <= endValue; i++) {
@@ -432,6 +451,7 @@ public class DateTimeWheelDialog extends Dialog {
             }
         }
         int newSelectedIndex = keepLastSelected ? (lastSelectedIndex == -1 ? 0 : lastSelectedIndex) : 0;
+        Log.i("test_wheel_month", "selectedMonth:" + selectedMonth + " startValue:" + startValue + " endValue:" + endValue + " newSelectedIndex:" + newSelectedIndex);
         dayWheelItemView.setItems(dayItems);
         dayWheelItemView.setSelectedIndex(newSelectedIndex);
     }
